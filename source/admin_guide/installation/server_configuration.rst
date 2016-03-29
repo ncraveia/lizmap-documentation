@@ -60,7 +60,7 @@ Installing necessary packages
 
 .. code-block:: bash
 
-   apt-get install apache2 apache2-mpm-worker libapache2-mod-fcgid php5-cgi php5-curl php5-cli php5-sqlite php5-gd
+   apt-get install apache2 apache2-mpm-worker libapache2-mod-fcgid php5 php5-cgi php5-curl php5-cli php5-sqlite php5-gd
    a2dismod php5
    a2enmod actions
    a2enmod fcgid
@@ -73,7 +73,7 @@ Setting the compression
 -------------------------------
 .. code-block:: bash
 
-   nano /etc/apache2/conf.d/mod_deflate.conf # y ajouter
+   nano /etc/apache2/conf-available/mod_deflate.conf # y ajouter
    <Location />
            # Insert filter
            SetOutputFilter DEFLATE
@@ -184,9 +184,9 @@ Install
    mkdir /home/data
    mkdir /home/data/postgresql
    service postgresql stop
-   pg_dropcluster --stop 9.1 main
+   pg_dropcluster --stop 9.4 main
    chown postgres:postgres /home/data/postgresql
-   pg_createcluster 9.1 main -d /home/data/postgresql --locale fr_FR.UTF8 -p 5678 --start
+   pg_createcluster 9.4 main -d /home/data/postgresql --locale fr_FR.UTF8 -p 5678 --start
    
    # Creating a "superuser" user
    su - postgres
@@ -206,10 +206,10 @@ We will use pgtune, an utility program that can automatically generate a PostGre
 .. code-block:: bash
 
    # PostgreSQL Tuning with pgtune
-   pgtune -i /etc/postgresql/9.1/main/postgresql.conf -o /etc/postgresql/9.1/main/postgresql.conf.pgtune --type Web
-   cp /etc/postgresql/9.1/main/postgresql.conf /etc/postgresql/9.1/main/postgresql.conf.backup
-   cp /etc/postgresql/9.1/main/postgresql.conf.pgtune /etc/postgresql/9.1/main/postgresql.conf  
-   nano /etc/postgresql/9.1/main/postgresql.conf
+   pgtune -i /etc/postgresql/9.4/main/postgresql.conf -o /etc/postgresql/9.4/main/postgresql.conf.pgtune --type Web
+   cp /etc/postgresql/9.4/main/postgresql.conf /etc/postgresql/9.4/main/postgresql.conf.backup
+   cp /etc/postgresql/9.4/main/postgresql.conf.pgtune /etc/postgresql/9.4/main/postgresql.conf  
+   nano /etc/postgresql/9.4/main/postgresql.conf
    # Restart to check any problems
    service postgresql restart
    # If error messages, increase the linux kernel configuration variables
@@ -290,6 +290,13 @@ Install
    cat /etc/apt/sources.list.d/debian-gis.list
    deb http://qgis.org/debian trusty main
    deb-src http://qgis.org/debian trusty main
+   
+   # Add the repository DebianGis
+   nano /etc/apt/sources.list/
+   deb http://qgis.org/debian jessie main
+   deb-src http://qgis.org/debian jessie main
+   
+   
     
    # Add keys
    sudo gpg --recv-key DD45F6C3
