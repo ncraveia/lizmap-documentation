@@ -300,5 +300,8 @@ Install
    
    # Install QGIS Server
    sudo apt-get install qgis-server python-qgis
-
+   
+   Enable cgi in apache2:
+   a2enmod cgid
+   
 .. note:: See http://docs.qgis.org/testing/en/docs/user_manual/working_with_ogc/ogc_server_support.html for more information on QGIS Server.
